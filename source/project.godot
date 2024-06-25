@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="The Best Roguelike Ever"
-run/main_scene="res://contexts/pregame/scenes/GameLoaderScene.tscn"
+run/main_scene="res://contexts/core/scenes/NavigateDungeonScene.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
 
