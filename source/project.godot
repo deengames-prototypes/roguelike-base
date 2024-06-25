@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Turbo"
+config/name="The Best Roguelike Ever"
 run/main_scene="res://contexts/pregame/scenes/GameLoaderScene.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
@@ -23,8 +23,8 @@ SceneManager="*res://scripts/SceneManager.gd"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=960
+window/size/viewport_height=540
 window/stretch/mode="viewport"
 
 [editor_plugins]
