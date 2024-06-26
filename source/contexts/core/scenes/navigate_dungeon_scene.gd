@@ -21,7 +21,7 @@ var _tile_data = Array2D.new(MAP_SIZE_TILES.x, MAP_SIZE_TILES.y)
 var _entity_data = Array2D.new(MAP_SIZE_TILES.x, MAP_SIZE_TILES.y)
 var _fog_data = Array2D.new(MAP_SIZE_TILES.x, MAP_SIZE_TILES.y) # coordinates => is_fogged
 
-var _player_start = Vector2i(6, 3)
+var _player_position = Vector2i(6, 3)
 
 func _ready():
 	# TODO: move out
@@ -29,8 +29,9 @@ func _ready():
 	
 	_populate_tiles()
 	_populate_entities()
+	_update_fog()
 
-func _generate_dungeon():
+func _generate_dungeon() -> void:
 	_tile_data.fill("ground")
 	
 	for x in range(MAP_SIZE_TILES.x):
@@ -45,7 +46,7 @@ func _generate_dungeon():
 		for x in range(MAP_SIZE_TILES.x):
 			_fog_data.set_at(x, y, true) # true => is_fogged
 	
-func _populate_tiles():
+func _populate_tiles() -> void:
 	%DungeonTileMap.clear()
 	
 	for y in range(MAP_SIZE_TILES.y):
@@ -58,9 +59,23 @@ func _populate_tiles():
 			if is_fogged:
 				%DungeonTileMap.set_cell(TILE_LAYERS["fog"], Vector2i(x, y), 0, TILE_NAME_TO_OFFSET["fog"])
 
-func _populate_entities():
+func _populate_entities()-> void:
 	var player = Player.instantiate()
 	add_child(player)
-	player.position = _player_start * 32
+	player.position = _player_position * 32
 	# Data moves to synch with scene, to start. After this, data drives it.
-	_entity_data.set_at(_player_start.x, _player_start.y, player)
+	_entity_data.set_at(_player_position.x, _player_position.y, player)
+
+func _update_fog() -> void:
+	var player = _entity_data.get_at(_player_position.x, _player_position.y)
+	for y in range(-player.sight_radius, player.sight_radius + 1):
+		for x in range(-player.sight_radius, player.sight_radius + 1):
+			var lit_cell = Vector2i(_player_position.x + x, _player_position.y + y)
+			
+			# Gives WeIrD results
+			#if (lit_cell - _player_position).length() > player.sight_radius:
+				#continue
+				
+			_fog_data.set_at(_player_position.x + x, _player_position.y + y, false) # false => is_fog = no
+			# -1 source = erase
+			%DungeonTileMap.set_cell(TILE_LAYERS["fog"], lit_cell, -1, Vector2i.ZERO)
