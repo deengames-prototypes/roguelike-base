@@ -31,6 +31,7 @@ func _ready():
 	
 	# Systems
 	add_child(PlayerMovementSystem.new(_tile_data, _entity_data, _player))
+	add_child(MonsterMovementSystem.new(_tile_data, _entity_data))
 	
 	# UI
 	_populate_tiles()

@@ -22,6 +22,9 @@ func move(coordinates:Vector2i) -> void:
 	_entity_data.set_at(player_tile, null)
 	_entity_data.set_at(coordinates, _player)
 	
+	# Make dem monsters move
+	CoreEventBus.player_moving.emit()
+	
 	var tween = get_tree().create_tween()
 	_player.is_tweening = true
 	tween.tween_property(_player, "position", Vector2(coordinates) * 32, 0.1)
