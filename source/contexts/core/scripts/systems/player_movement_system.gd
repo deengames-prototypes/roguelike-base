@@ -26,12 +26,7 @@ func move(coordinates:Vector2i) -> void:
 func can_move(coordinates:Vector2i) -> bool:
 	if not _tile_data.is_in_bounds(coordinates):
 		return false
-	
-	########### TODO: DELETE
-	if typeof(_tile_data.get_at(coordinates)) != TYPE_STRING:
-		push_error("tile data at %s is a non-string %s" % [coordinates, _tile_data.get_at(coordinates)])
-		return false
-	
+		
 	if not "ground" in _tile_data.get_at(coordinates):
 		return false
 	
@@ -39,11 +34,6 @@ func can_move(coordinates:Vector2i) -> bool:
 		return false # occupied
 	
 	var tile_name = _tile_data.get_at(coordinates)
-	########## TODO: DELETE
-	if typeof(tile_name) != TYPE_STRING:
-		push_error("Herp derp: tile name at %s is %s" % [coordinates, tile_name])
-		return true
-
 	return "ground" in tile_name
 
 func _process(_delta: float) -> void:

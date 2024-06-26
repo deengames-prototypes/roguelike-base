@@ -18,7 +18,7 @@ const TILE_NAME_TO_OFFSET = {
 }
 
 @onready var _player = Player.instantiate()
-@onready var _defogger = Defogger.new(_player, _tile_data, %DungeonTileMap, TILE_LAYERS["fog"])
+@onready var _defogger = Defogger.new(_player, _fog_data, %DungeonTileMap, TILE_LAYERS["fog"])
 
 var _tile_data = Array2D.new(MAP_SIZE_TILES.x, MAP_SIZE_TILES.y)
 var _entity_data = Array2D.new(MAP_SIZE_TILES.x, MAP_SIZE_TILES.y)
