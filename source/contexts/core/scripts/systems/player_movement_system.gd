@@ -12,6 +12,9 @@ func _init(tile_data:Array2D, entity_data:Array2D, player:Player) -> void:
 	_player = player
 
 func move(coordinates:Vector2i) -> void:
+	if _player.is_tweening:
+		return
+		
 	if not can_move(coordinates):
 		return
 	
@@ -19,9 +22,13 @@ func move(coordinates:Vector2i) -> void:
 	_entity_data.set_at(player_tile, null)
 	_entity_data.set_at(coordinates, _player)
 	
-	var tween = get_tree().create_tween() 
+	var tween = get_tree().create_tween()
+	_player.is_tweening = true
 	tween.tween_property(_player, "position", Vector2(coordinates) * 32, 0.1)
-	tween.finished.connect(func(): CoreEventBus.player_moved.emit())
+	tween.finished.connect(func():
+		_player.is_tweening = false
+		CoreEventBus.player_moved.emit()
+	)
 	
 func can_move(coordinates:Vector2i) -> bool:
 	if not _tile_data.is_in_bounds(coordinates):
