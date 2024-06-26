@@ -1,17 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cg3ehn855cos3"]
+[gd_scene load_steps=3 format=3 uid="uid://cg3ehn855cos3"]
 
 [ext_resource type="Texture2D" uid="uid://bmm16sxc4md27" path="res://icon.png" id="1_ehbro"]
 [ext_resource type="Script" path="res://contexts/core/scenes/entities/player.gd" id="1_fs7d7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a5ul4"]
-size = Vector2(32, 32)
-
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="Node2D"]
 script = ExtResource("1_fs7d7")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(16, 16)
-shape = SubResource("RectangleShape2D_a5ul4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ehbro")
