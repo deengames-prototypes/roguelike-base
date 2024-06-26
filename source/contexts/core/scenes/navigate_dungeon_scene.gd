@@ -29,10 +29,15 @@ func _ready():
 	# TODO: move out
 	_generate_dungeon()
 	
+	# Systems
+	add_child(PlayerMovementSystem.new(_tile_data, _entity_data, _player))
+	
+	# UI
 	_populate_tiles()
 	_populate_entities()
 	_defogger.remove_fog()
 	
+	# Events
 	CoreEventBus.player_moved.connect(func(): _defogger.remove_fog())
 
 func _generate_dungeon() -> void:
