@@ -31,11 +31,9 @@ func _ready():
 	
 	_populate_tiles()
 	_populate_entities()
-	CoreEventBus.player_moved.connect(func(): _defogger.remove_fog())
-
-	call_deferred("_post_ready")
 	_defogger.remove_fog()
 	
+	CoreEventBus.player_moved.connect(func(): _defogger.remove_fog())
 
 func _generate_dungeon() -> void:
 	_tile_data.fill("ground")
