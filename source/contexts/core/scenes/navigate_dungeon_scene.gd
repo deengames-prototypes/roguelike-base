@@ -17,14 +17,13 @@ const TILE_NAME_TO_OFFSET = {
 	"fog": Vector2i.RIGHT * 2
 }
 
-@onready var _defogger = Defogger.new(_tile_data, %DungeonTileMap, TILE_LAYERS["fog"])
+@onready var _player = Player.instantiate()
+@onready var _defogger = Defogger.new(_player, _tile_data, %DungeonTileMap, TILE_LAYERS["fog"])
 
 var _tile_data = Array2D.new(MAP_SIZE_TILES.x, MAP_SIZE_TILES.y)
 var _entity_data = Array2D.new(MAP_SIZE_TILES.x, MAP_SIZE_TILES.y)
 # aka is_fogged. coordinates => true if fogged up
 var _fog_data = Array2D.new(MAP_SIZE_TILES.x, MAP_SIZE_TILES.y)
-
-var _player_position = Vector2i(6, 3)
 
 func _ready():
 	# TODO: move out
@@ -32,7 +31,11 @@ func _ready():
 	
 	_populate_tiles()
 	_populate_entities()
-	_defogger.remove_fog(_entity_data.get_at(_player_position))
+	CoreEventBus.player_moved.connect(func(): _defogger.remove_fog())
+
+	call_deferred("_post_ready")
+	_defogger.remove_fog()
+	
 
 func _generate_dungeon() -> void:
 	_tile_data.fill("ground")
@@ -64,8 +67,7 @@ func _populate_tiles() -> void:
 				%DungeonTileMap.set_cell(TILE_LAYERS["fog"], Vector2i(x, y), 0, TILE_NAME_TO_OFFSET["fog"])
 
 func _populate_entities()-> void:
-	var player = Player.instantiate()
-	add_child(player)
-	player.position = _player_position * 32
+	add_child(_player)
+	_player.position = Vector2i(6, 3) * 32
 	# Data moves to synch with scene, to start. After this, data drives it.
-	_entity_data.set_at(_player_position, player)
+	_entity_data.set_at(Vector2i(_player.position / 32), _player)

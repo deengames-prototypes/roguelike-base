@@ -60,8 +60,9 @@ func fill(value):
 	for i in len(_data):
 		_data[i] = value
  
-func is_in_bounds(x, y):
-	return x >= 0 and y >= 0 and x < self.width and y < self.height
+func is_in_bounds(coordinates:Vector2i) -> bool:
+	return coordinates.x >= 0 and coordinates.y >= 0 and \
+	coordinates.x < self.width and coordinates.y < self.height
  
 func _get_index(coordinates:Vector2i):
 	return (coordinates.y * self.width) + coordinates.x

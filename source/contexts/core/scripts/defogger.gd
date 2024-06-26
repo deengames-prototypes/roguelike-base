@@ -4,17 +4,19 @@ extends Node
 var _fog_data:Array2D
 var _dungeon_tile_map:TileMap
 var _fog_layer:int
+var _player:Player
 
-func _init(fog_data:Array2D, dungeon_tile_map:TileMap, fog_layer:int) -> void:
+func _init(player:Player, fog_data:Array2D, dungeon_tile_map:TileMap, fog_layer:int) -> void:
 	_fog_data = fog_data
 	_dungeon_tile_map = dungeon_tile_map
 	_fog_layer = fog_layer
-
-func remove_fog(player):
-	var player_position = Vector2i(player.position / 32)
+	_player = player
 	
-	for y in range(-player.sight_radius, player.sight_radius + 1):
-		for x in range(-player.sight_radius, player.sight_radius + 1):
+func remove_fog():
+	var player_position = Vector2i(_player.position / 32)
+	
+	for y in range(-_player.sight_radius, _player.sight_radius + 1):
+		for x in range(-_player.sight_radius, _player.sight_radius + 1):
 			var lit_cell = player_position + Vector2i(x, y)
 			
 			# Gives WeIrD results
