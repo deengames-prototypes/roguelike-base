@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ok78dcogdapy"]
+
+[ext_resource type="Script" path="res://contexts/core/scenes/entities/monster.gd" id="1_1sq1g"]
+[ext_resource type="Texture2D" uid="uid://bmm16sxc4md27" path="res://icon.png" id="1_vkbqt"]
+
+[node name="Monster" type="Node2D" groups=["Monsters"]]
+script = ExtResource("1_1sq1g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0, 0, 1)
+texture = ExtResource("1_vkbqt")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)

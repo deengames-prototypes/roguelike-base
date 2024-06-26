@@ -5,17 +5,19 @@ var _tile_data:Array2D
 var _entity_data:Array2D
 
 var _player:Player
+var _move_checker:MoveChecker
 
 func _init(tile_data:Array2D, entity_data:Array2D, player:Player) -> void:
 	_tile_data = tile_data
 	_entity_data = entity_data
 	_player = player
+	_move_checker = MoveChecker.new(_tile_data, _entity_data)
 
 func move(coordinates:Vector2i) -> void:
 	if _player.is_tweening:
 		return
 		
-	if not can_move(coordinates):
+	if not _move_checker.can_move(coordinates):
 		return
 	
 	var player_tile = Vector2i(_player.position / 32)
@@ -32,19 +34,6 @@ func move(coordinates:Vector2i) -> void:
 		_player.is_tweening = false
 		CoreEventBus.player_moved.emit()
 	)
-	
-func can_move(coordinates:Vector2i) -> bool:
-	if not _tile_data.is_in_bounds(coordinates):
-		return false
-		
-	if not "ground" in _tile_data.get_at(coordinates):
-		return false
-	
-	if _entity_data.has(coordinates):
-		return false # occupied
-	
-	var tile_name = _tile_data.get_at(coordinates)
-	return "ground" in tile_name
 
 func _process(_delta: float) -> void:
 	var movement = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.2)
