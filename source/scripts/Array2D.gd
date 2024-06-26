@@ -26,27 +26,34 @@ func load_from(dict):
 	self.height = dict["height"]
 	self._data = dict["data"]
  
-func has(x, y):
+func has(coordinates:Vector2i):
+	var x = coordinates.x
+	var y = coordinates.y
 	if x < 0 or x >= self.width or y < 0 or y >= self.height:
 		pass #("Invalid coordinates: %s, %s" % [x, y])
 		return false
 	else:
-		var index = self._get_index(x, y)
+		var index = self._get_index(coordinates)
 		return self._data[index] != null
  
-func get_at(x, y):
+func get_at(coordinates:Vector2i):
+	var x = coordinates.x
+	var y = coordinates.y
+	
 	if x < 0 or x >= self.width or y < 0 or y >= self.height:
 		pass #("Invalid coordinates: %s, %s" % [x, y])
 		return null
 	else:
-		var index = self._get_index(x, y)
+		var index = self._get_index(coordinates)
 		return self._data[index]
  
-func set_at(x, y, item):
+func set_at(coordinates:Vector2i, item):
+	var x = coordinates.x
+	var y = coordinates.y
 	if x < 0 or x >= self.width or y < 0 or y >= self.height:
 		pass #("Invalid coordinates: %s, %s" % [x, y])
 	else:
-		var index = self._get_index(x, y)
+		var index = self._get_index(coordinates)
 		self._data[index] = item
  
 func fill(value):
@@ -56,6 +63,6 @@ func fill(value):
 func is_in_bounds(x, y):
 	return x >= 0 and y >= 0 and x < self.width and y < self.height
  
-func _get_index(x, y):
-	return (y * self.width) + x
+func _get_index(coordinates:Vector2i):
+	return (coordinates.y * self.width) + coordinates.x
  
