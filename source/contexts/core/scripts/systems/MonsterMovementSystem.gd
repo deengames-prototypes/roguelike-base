@@ -22,15 +22,17 @@ func _on_player_moving():
 	
 	for monster in monsters:
 		var monster_tile_position = Vector2i(monster.position / 32)
-		var distance_to_player = (_player.position - monster.position).length() / 32
+		var vector_to_player = (_player.position - monster.position)
+		
+		var distance_to_player:float = vector_to_player.length() / 32
 		if distance_to_player > monster.stalking_range:
 			return # sit idly. Can also wander around aimlessly.
 		
 		# we stalkin', yo. Randomly...
 		var potential_moves = []
-		if distance_to_player.x != 0:
+		if vector_to_player.x != 0:
 			potential_moves.append(Vector2i(sign(distance_to_player), 0))
-		if distance_to_player.y != 0:
+		if vector_to_player.y != 0:
 			potential_moves.append(Vector2i(0, sign(distance_to_player)))
 		
 		if len(potential_moves) == 0:
