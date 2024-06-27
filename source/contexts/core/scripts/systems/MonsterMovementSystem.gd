@@ -28,7 +28,7 @@ func _on_player_moving():
 		
 		var distance_to_player:float = vector_to_player.length() / 32
 		if distance_to_player > monster.stalking_range:
-			return # sit idly. Can also wander around aimlessly.
+			continue # sit idly. Can also wander around aimlessly.
 		
 		# we stalkin', yo. Randomly...
 		var potential_moves = []
@@ -39,7 +39,7 @@ func _on_player_moving():
 		
 		if len(potential_moves) == 0:
 			push_error("Monster doesn't seem to have any legal moves ...")
-			return
+			continue
 		
 		var valid_moves = []
 		for move in potential_moves:
@@ -47,7 +47,7 @@ func _on_player_moving():
 				valid_moves.append(monster_tile_position + move)
 		
 		if len(valid_moves) == 0:
-			return
+			continue
 		
 		var move = valid_moves.pick_random()
 		var tree = get_tree()
