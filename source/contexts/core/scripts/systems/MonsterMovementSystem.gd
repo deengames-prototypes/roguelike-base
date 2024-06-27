@@ -33,9 +33,9 @@ func _on_player_moving():
 		# we stalkin', yo. Randomly...
 		var potential_moves = []
 		if vector_to_player.x != 0:
-			potential_moves.append(Vector2i(sign(distance_to_player), 0))
+			potential_moves.append(Vector2i(sign(vector_to_player.x), 0))
 		if vector_to_player.y != 0:
-			potential_moves.append(Vector2i(0, sign(distance_to_player)))
+			potential_moves.append(Vector2i(0, sign(vector_to_player.y)))
 		
 		if len(potential_moves) == 0:
 			push_error("Monster doesn't seem to have any legal moves ...")
@@ -44,11 +44,11 @@ func _on_player_moving():
 		var valid_moves = []
 		for move in potential_moves:
 			if _move_checker.can_move(monster_tile_position + move):
-				valid_moves.append(monster_tile_position + move)
+				valid_moves.append(move)
 		
 		if len(valid_moves) == 0:
 			continue
 		
 		var move = valid_moves.pick_random()
 		var tree = get_tree()
-		_entity_tweener.move(tree, monster, move)
+		_entity_tweener.move(tree, monster, monster_tile_position + move)
