@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b6l1qy3eqc6p5"]
 
-[ext_resource type="Script" path="res://contexts/core/scenes/core_game_scene.gd" id="1_0bmof"]
+[ext_resource type="Script" path="res://contexts/core/scenes/CoreGameScene.gd" id="1_0bmof"]
 [ext_resource type="Texture2D" uid="uid://b8fmrj8yxlggp" path="res://assets/images/tilesets/underwater.png" id="2_tx010"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4quch"]
