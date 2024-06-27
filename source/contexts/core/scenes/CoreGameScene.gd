@@ -1,6 +1,7 @@
 extends Node2D
 
-const Player = preload("res://contexts/core/scenes/entities/Player.tscn")
+const MonsterScene = preload("res://contexts/core/scenes/entities/Monster.tscn")
+const PlayerScene = preload("res://contexts/core/scenes/entities/Player.tscn")
 
 const MAP_SIZE_TILES = Vector2i(50, 50)
 
@@ -17,7 +18,7 @@ const TILE_NAME_TO_OFFSET = {
 	"fog": Vector2i.RIGHT * 2
 }
 
-@onready var _player = Player.instantiate()
+@onready var _player = PlayerScene.instantiate()
 @onready var _defogger = Defogger.new(_player, _fog_data, %DungeonTileMap, TILE_LAYERS["fog"])
 
 var _tile_data = Array2D.new(MAP_SIZE_TILES.x, MAP_SIZE_TILES.y)
@@ -55,7 +56,7 @@ func _generate_dungeon() -> void:
 	for y in range(MAP_SIZE_TILES.y):
 		for x in range(MAP_SIZE_TILES.x):
 			_fog_data.set_at(Vector2i(x, y), true) # true => is_fogged
-	
+			
 func _populate_tiles() -> void:
 	%DungeonTileMap.clear()
 	
@@ -70,8 +71,15 @@ func _populate_tiles() -> void:
 			if is_fogged:
 				%DungeonTileMap.set_cell(TILE_LAYERS["fog"], Vector2i(x, y), 0, TILE_NAME_TO_OFFSET["fog"])
 
+# HMM. Generate and popualte at the same time, because the dictionary stores instances...
 func _populate_entities()-> void:
 	add_child(_player)
 	_player.position = Vector2i(6, 3) * 32
 	# Data moves to synch with scene, to start. After this, data drives it.
 	_entity_data.set_at(Vector2i(_player.position / 32), _player)
+
+	for monster_tile_position in [Vector2i(4, 1), Vector2i(7, 2), Vector2i(6, 5)]:
+		var monster = MonsterScene.instantiate()
+		monster.position = monster_tile_position * 32
+		_entity_data.set_at(monster_tile_position, monster)
+		add_child(monster)
