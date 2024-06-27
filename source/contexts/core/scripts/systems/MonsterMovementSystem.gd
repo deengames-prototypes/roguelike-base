@@ -6,6 +6,7 @@ var _entity_data:Array2D
 var _player:Player
 
 var _move_checker:MoveChecker
+var _entity_tweener:EntityTweener
 
 func _init(tile_data:Array2D, entity_data:Array2D, player:Player) -> void:
 	_tile_data = tile_data
@@ -13,6 +14,7 @@ func _init(tile_data:Array2D, entity_data:Array2D, player:Player) -> void:
 	_player = player
 	
 	_move_checker = MoveChecker.new(_tile_data, _entity_data)
+	_entity_tweener = EntityTweener.new(_entity_data, _move_checker)
 	
 	# Respond to the player-is-about-to-move signal
 	CoreEventBus.player_moving.connect(_on_player_moving)
@@ -48,4 +50,5 @@ func _on_player_moving():
 			return
 		
 		var move = valid_moves.pick_random()
-		# MOVE ME
+		var tree = get_tree()
+		_entity_tweener.move(tree, monster, move)
