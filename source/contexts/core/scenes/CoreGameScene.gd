@@ -32,6 +32,9 @@ func _ready():
 	
 	# Systems
 	add_child(PlayerMovementSystem.new(_tile_data, _entity_data, _player))
+	
+	# Order of these systems is the order monsters prioritize their actions.
+	add_child(MonsterMeleeSystem.new(_tile_data, _entity_data, _player))
 	add_child(MonsterMovementSystem.new(_tile_data, _entity_data, _player))
 	
 	# UI

@@ -36,3 +36,13 @@ func move(tree:SceneTree, entity:Node2D, coordinates:Vector2i, emit_player_event
 			entity.is_tweening = false
 		if emit_player_events:
 			CoreEventBus.player_moved.emit())
+
+func attack(tree:SceneTree, entity:Node2D, direction:Vector2) -> void:
+	direction = direction.normalized()
+	
+	# Has to be done here, or we get a "Tween started with no tweeners" error.
+	var tween = tree.create_tween()
+	tween.tween_property(entity, "position", entity.position + (direction * 16), 0.1)
+	tween.finished.connect(func():
+		tween = tree.create_tween()
+		tween.tween_property(entity, "position", entity.position - (direction * 16), 0.1))

@@ -23,6 +23,8 @@ func _on_player_moving():
 	var monsters = get_tree().get_nodes_in_group("Monsters")
 	
 	for monster in monsters:
+		monster.used_turn = false
+		
 		var monster_tile_position = Vector2i(monster.position / 32)
 		var vector_to_player = (_player.position - monster.position)
 		
@@ -49,6 +51,7 @@ func _on_player_moving():
 		if len(valid_moves) == 0:
 			continue
 		
+		monster.used_turn = true
 		var move = valid_moves.pick_random()
 		var tree = get_tree()
 		_entity_tweener.move(tree, monster, monster_tile_position + move)
