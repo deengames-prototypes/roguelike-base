@@ -11,9 +11,6 @@ func _init(entity_data:Array2D, move_checker:MoveChecker):
 func move(tree:SceneTree, entity:Node2D, coordinates:Vector2i, emit_player_events:bool = false) -> void:
 	if "is_tweening" in entity and entity.is_tweening:
 		return
-		
-	if not _move_checker.can_move(coordinates):
-		return
 	
 	var entity_tile = Vector2i(entity.position / 32)
 	_entity_data.set_at(entity_tile, null)

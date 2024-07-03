@@ -35,10 +35,14 @@ func _process(_delta: float) -> void:
 	
 	var tree = get_tree()
 	var player_tile = Vector2i(_player.position / 32)
-	if movement.x != 0:
-		_entity_tweener.move(tree, _player, player_tile + (Vector2i.LEFT if movement.x < 0 else Vector2i.RIGHT), true)
-		return
-	elif movement.y != 0:
-		_entity_tweener.move(tree, _player, player_tile + (Vector2i.UP if movement.y < 0 else Vector2i.DOWN), true)
-		return
+	var target_tile = player_tile
 	
+	if movement.x != 0:
+		target_tile += Vector2i.LEFT if movement.x < 0 else Vector2i.RIGHT
+	elif movement.y != 0:
+		target_tile += Vector2i.UP if movement.y < 0 else Vector2i.DOWN
+
+	if not _move_checker.can_move(target_tile):
+		return
+
+	_entity_tweener.move(tree, _player, target_tile, true)
