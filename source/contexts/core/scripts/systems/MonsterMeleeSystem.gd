@@ -35,3 +35,4 @@ func _on_player_moving():
 		# STAB! STAB!!!!!!
 		var tree = get_tree()
 		_entity_tweener.attack(tree, monster, vector_to_player)
+		_player.hurt()

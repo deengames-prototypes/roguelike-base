@@ -44,6 +44,7 @@ func _ready():
 	
 	# Events
 	CoreEventBus.player_moved.connect(func(): _defogger.remove_fog())
+	CoreEventBus.player_died.connect(func(): _game_over())
 
 func _generate_dungeon() -> void:
 	_tile_data.fill("ground")
@@ -86,3 +87,7 @@ func _populate_entities()-> void:
 		monster.position = monster_tile_position * 32
 		_entity_data.set_at(monster_tile_position, monster)
 		add_child(monster)
+
+func _game_over():
+	# Um. PLayer got erased. There's nothing to do ...
+	pass
