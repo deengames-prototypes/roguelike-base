@@ -8,3 +8,7 @@ extends Node2D
 var used_turn:bool = false
 
 var stalking_range:int = 5 # depends on the monster
+
+func hurt():
+	self.queue_free() #lolwut
+	CoreEventBus.monster_died.emit(self)

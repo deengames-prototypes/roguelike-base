@@ -7,3 +7,4 @@ signal player_moving
 signal player_moved
 
 signal player_died # Game over, in other words
+signal monster_died(who)

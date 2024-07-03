@@ -15,11 +15,11 @@ func _init(tile_data:Array2D, entity_data:Array2D, player:Player) -> void:
 	
 	_move_checker = MoveChecker.new(_tile_data, _entity_data)
 	_entity_tweener = EntityTweener.new(_entity_data, _move_checker)
-
+	
 func _process(_delta: float) -> void:
 	if not is_instance_valid(_player) or _player.is_dead():
 		return
-		
+	
 	# TODO: don't let the player do this until all monsters move. If there are any...
 	if Input.is_action_just_pressed("ui_accept"):
 		# Pass turn. This is what makes players monsters move.
@@ -43,6 +43,16 @@ func _process(_delta: float) -> void:
 		target_tile += Vector2i.UP if movement.y < 0 else Vector2i.DOWN
 
 	if not _move_checker.can_move(target_tile):
+		# Is there a monster there?
+		var occupant = _move_checker.get_occupant(target_tile)
+		if occupant == null:
+			# A solid wall, a chasm, etc.
+			return
+		
+		# Not sure if/how to move this into a player melee system...
+		if occupant is Monster:
+			occupant.hurt()
+			_entity_tweener.attack(get_tree(), _player, target_tile - player_tile)
 		return
 
 	_entity_tweener.move(tree, _player, target_tile, true)
