@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbienee4el2ha"]
+[gd_scene load_steps=7 format=3 uid="uid://bbienee4el2ha"]
 
 [ext_resource type="Script" path="res://contexts/core/scenes/CoreGameScene.gd" id="1_0bmof"]
 [ext_resource type="Texture2D" uid="uid://b8fmrj8yxlggp" path="res://assets/images/tilesets/prototype.png" id="1_3swem"]
 [ext_resource type="PackedScene" uid="uid://dqf0dw7yhddst" path="res://contexts/core/scenes/entities/Player.tscn" id="3_8hkbo"]
+[ext_resource type="PackedScene" uid="uid://u23i4xaa74q5" path="res://contexts/core/scenes/entities/Monster.tscn" id="4_vk0oa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bwpdi"]
 texture = ExtResource("1_3swem")
@@ -33,3 +34,12 @@ layer_0/tile_data = PackedInt32Array(0, 65536, 0, 65536, 65536, 0, 131072, 65536
 
 [node name="Player" parent="." instance=ExtResource("3_8hkbo")]
 position = Vector2(64, 64)
+
+[node name="Monster" parent="." instance=ExtResource("4_vk0oa")]
+position = Vector2(224, 32)
+
+[node name="Monster2" parent="." instance=ExtResource("4_vk0oa")]
+position = Vector2(64, 224)
+
+[node name="Monster3" parent="." instance=ExtResource("4_vk0oa")]
+position = Vector2(160, 160)
