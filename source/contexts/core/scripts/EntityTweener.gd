@@ -8,17 +8,16 @@ func _init(entity_data:Array2D, move_checker:MoveChecker):
 	_entity_data = entity_data
 	_move_checker = move_checker
 	
-func move(tree:SceneTree, entity:Node2D, coordinates:Vector2i, emit_player_events:bool = false) -> void:
+func move(tree:SceneTree, entity:Node2D, coordinates:Vector2i) -> void:
+	if entity == null or not is_instance_valid(entity):
+		return
+		
 	if "is_tweening" in entity and entity.is_tweening:
 		return
 	
 	var entity_tile = Vector2i(entity.position / 32)
 	_entity_data.set_at(entity_tile, null)
 	_entity_data.set_at(coordinates, entity)
-	
-	if emit_player_events:
-		# Triggers monsters to move
-		CoreEventBus.player_moving.emit()
 	
 	if "is_tweening" in entity: 
 		# For player. Don't allow multiple moves concurrently.
@@ -30,9 +29,7 @@ func move(tree:SceneTree, entity:Node2D, coordinates:Vector2i, emit_player_event
 	
 	tween.finished.connect(func():
 		if "is_tweening" in entity:
-			entity.is_tweening = false
-		if emit_player_events:
-			CoreEventBus.player_moved.emit())
+			entity.is_tweening = false)
 
 func attack(tree:SceneTree, entity:Node2D, direction:Vector2) -> void:
 	direction = direction.normalized()

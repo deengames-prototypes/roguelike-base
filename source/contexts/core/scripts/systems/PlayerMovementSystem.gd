@@ -7,6 +7,7 @@ var _entity_data:Array2D
 var _player:Player
 var _move_checker:MoveChecker
 var _entity_tweener:EntityTweener
+var _monster_mover:MonsterMover
 
 func _init(tile_data:Array2D, entity_data:Array2D, player:Player) -> void:
 	_tile_data = tile_data
@@ -15,6 +16,7 @@ func _init(tile_data:Array2D, entity_data:Array2D, player:Player) -> void:
 	
 	_move_checker = MoveChecker.new(_tile_data, _entity_data)
 	_entity_tweener = EntityTweener.new(_entity_data, _move_checker)
+	_monster_mover = MonsterMover.new(_tile_data, _entity_data, _player)
 	
 func _process(_delta: float) -> void:
 	if not is_instance_valid(_player) or _player.is_dead():
@@ -55,4 +57,5 @@ func _process(_delta: float) -> void:
 			_entity_tweener.attack(get_tree(), _player, target_tile - player_tile)
 		return
 
-	_entity_tweener.move(tree, _player, target_tile, true)
+	_entity_tweener.move(tree, _player, target_tile)
+	_monster_mover.move_all_monsters()

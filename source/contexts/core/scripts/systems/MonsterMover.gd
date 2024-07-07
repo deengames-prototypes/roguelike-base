@@ -1,4 +1,4 @@
-class_name MonsterMovementSystem
+class_name MonsterMover
 extends Node
 
 var _tile_data:Array2D
@@ -17,10 +17,10 @@ func _init(tile_data:Array2D, entity_data:Array2D, player:Player) -> void:
 	_entity_tweener = EntityTweener.new(_entity_data, _move_checker)
 	
 	# Respond to the player-is-about-to-move signal
-	CoreEventBus.player_moving.connect(_on_player_moving)
+	#CoreEventBus.player_moving.connect(_on_player_moving)
 
-func _on_player_moving():
-	var monsters = get_tree().get_nodes_in_group("Monsters")
+func move_all_monsters():
+	var monsters = _player.get_tree().get_nodes_in_group("Monsters")
 	
 	for monster in monsters:
 		monster.used_turn = false
@@ -53,5 +53,5 @@ func _on_player_moving():
 		
 		monster.used_turn = true
 		var move = valid_moves.pick_random()
-		var tree = get_tree()
+		var tree = _player.get_tree()
 		_entity_tweener.move(tree, monster, monster_tile_position + move)

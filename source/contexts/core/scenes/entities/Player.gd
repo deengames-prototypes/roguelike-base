@@ -12,6 +12,7 @@ func is_dead():
 	return current_health <= 0
 
 func hurt(damage:int = 1):
+	return########################################
 	current_health -= max(damage, 0)
 	if is_dead():
 		CoreEventBus.player_died.emit()
