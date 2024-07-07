@@ -10,12 +10,15 @@ texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/custom_data_0 = "fog"
 1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:0/0/custom_data_0 = "wall"
 2:0/0 = 0
 2:0/0/custom_data_0 = "floor"
 
 [sub_resource type="TileSet" id="TileSet_2yu3v"]
 tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 3
 custom_data_layer_0/name = "TileName"
 custom_data_layer_0/type = 4
 sources/0 = SubResource("TileSetAtlasSource_bwpdi")

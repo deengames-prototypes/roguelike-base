@@ -25,10 +25,11 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func move(direction):
 	ray.target_position = inputs[direction] * TILE_SIZE
 	ray.force_raycast_update()
-	if !ray.is_colliding():
-		var tween = create_tween()
-		tween.tween_property(self, "position",
-			position + inputs[direction] * TILE_SIZE, MOVE_TIME_SECONDS).set_trans(Tween.TRANS_SINE)
-		is_moving = true
-		await tween.finished
-		is_moving = false
+	if ray.is_colliding():
+		return
+		
+	var tween = create_tween()
+	tween.tween_property(self, "position", position + inputs[direction] * TILE_SIZE, MOVE_TIME_SECONDS).set_trans(Tween.TRANS_SINE)
+	is_moving = true
+	await tween.finished
+	is_moving = false
