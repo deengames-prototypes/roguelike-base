@@ -15,19 +15,31 @@ func can_move(direction:Vector2i) -> bool:
 	ray.force_raycast_update()
 	return not ray.is_colliding()
 
-func move(direction:Vector2i, emit_events:bool = false):
+func move(direction:Vector2i):
+	var move_diff:Vector2 = Vector2(direction * TILE_SIZE)
+	var destination:Vector2 = self.position + move_diff
+	
+	# Check if we can move, or if someone else is moving there
+	if not can_move(direction):
+		print("Last minute cancel from %s" % self.name)
+		return
+	
+	var delete_me = %CollisionShape2D.duplicate()
+	delete_me.position = destination + delete_me.shape.size / 2
+	get_parent().add_child(delete_me)
+	
 	var tween = create_tween()
-	var destination:Vector2 = self.position + Vector2(direction * TILE_SIZE)
 	tween.tween_property(self, "position", destination, MOVE_TIME_SECONDS).set_trans(Tween.TRANS_SINE)
 	
 	is_moving = true
-
-	if emit_events: 
-		CoreEventBus.player_moving.emit()
+	pre_move()
 
 	await tween.finished
-	is_moving = false
 
-	if emit_events:
-		CoreEventBus.player_moved.emit()
+	is_moving = false
+	delete_me.queue_free()
+	post_move()
 	
+# Virtual methods. Override please.
+func pre_move(): pass
+func post_move(): pass

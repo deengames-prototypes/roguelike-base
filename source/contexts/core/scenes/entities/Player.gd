@@ -18,5 +18,11 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			if not can_move(direction_vector):
 				continue
 			
-			move(direction_vector, true)
+			move(direction_vector)
 			break
+
+func pre_move():
+	CoreEventBus.player_moving.emit()
+
+func post_move():
+	CoreEventBus.player_moved.emit()
