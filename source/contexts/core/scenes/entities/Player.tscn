@@ -24,3 +24,4 @@ shape = SubResource("RectangleShape2D_8nh0t")
 unique_name_in_owner = true
 position = Vector2(16, 16)
 target_position = Vector2(0, 32)
+collide_with_areas = true
