@@ -13,7 +13,11 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		return
 	
 	# Clear who is moving where this turn
-	BaseEntity.moving_next_turn.fill(null) 
+	BaseEntity.moving_next_turn.fill(null)
+	
+	if Input.is_action_just_pressed("ui_accept"):
+		# Pass turn
+		move(Vector2.ZERO)
 
 	for direction in direction_vectors.keys():
 		var direction_vector:Vector2i = direction_vectors[direction]

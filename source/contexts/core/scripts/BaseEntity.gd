@@ -17,7 +17,7 @@ func can_move(direction:Vector2) -> bool:
 	ray.force_raycast_update()
 	return not ray.is_colliding()
 
-# Returns true if moved
+# Returns true if moved. Maybe not, because someone else is moving there first.
 func move(direction:Vector2i) -> bool:
 	var move_diff:Vector2 = Vector2(direction * TILE_SIZE)
 	var destination:Vector2 = self.position + move_diff
