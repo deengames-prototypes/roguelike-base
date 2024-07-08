@@ -1,7 +1,6 @@
 class_name BaseEntity
 extends Area2D
 
-const MOVE_TIME_SECONDS:float = 0.25
 const TILE_SIZE:int = 32
 
 var is_moving:bool = false
@@ -28,8 +27,7 @@ func move(direction:Vector2i) -> bool:
 		return false
 	
 	moving_next_turn.set_at(tile_destination, self)
-	var tween = create_tween()
-	tween.tween_property(self, "position", destination, MOVE_TIME_SECONDS).set_trans(Tween.TRANS_SINE)
+	var tween = ActionTweener.move(create_tween(), self, destination)
 	
 	is_moving = true
 	pre_move()
