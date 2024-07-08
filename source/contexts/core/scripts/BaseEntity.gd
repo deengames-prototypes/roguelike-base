@@ -17,16 +17,16 @@ func can_move(direction:Vector2i) -> bool:
 	ray.force_raycast_update()
 	return not ray.is_colliding()
 
-func move(direction:Vector2i):
+# Returns true if moved
+func move(direction:Vector2i) -> bool:
 	var move_diff:Vector2 = Vector2(direction * TILE_SIZE)
 	var destination:Vector2 = self.position + move_diff
 	var tile_destination = Vector2i(destination / TILE_SIZE)
 	
 	# Check if we can move, or if someone else is moving there
-	var occupied_by = moving_next_turn.get_at(tile_destination)
-	if occupied_by != null and is_instance_valid(occupied_by) and occupied_by != self:
-		print("%s last-minute cancel at %s" % [self.name, tile_destination])
-		return
+	if moving_next_turn.get_at(tile_destination):
+		print("%s last-minute cancel at %s, occupied by %s" % [self.name, tile_destination, moving_next_turn.get_at(tile_destination).name])
+		return false
 	
 	moving_next_turn.set_at(tile_destination, self)
 	print("%s is moving to %s" % [self, tile_destination])
@@ -41,6 +41,8 @@ func move(direction:Vector2i):
 	moving_next_turn.set_at(tile_destination, null)
 	is_moving = false
 	post_move()
+	
+	return true
 	
 # Virtual methods. Override please.
 func pre_move(): pass

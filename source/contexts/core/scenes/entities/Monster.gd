@@ -14,5 +14,5 @@ func try_to_move():
 		if not can_move(direction):
 			continue
 		
-		self.move(direction)
-		break
+		if await self.move(direction):
+			break
