@@ -1,15 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://u23i4xaa74q5"]
+[gd_scene load_steps=4 format=3 uid="uid://u23i4xaa74q5"]
 
+[ext_resource type="Script" path="res://contexts/core/scenes/entities/Monster.gd" id="1_1sq1g"]
 [ext_resource type="Texture2D" uid="uid://bmm16sxc4md27" path="res://icon.png" id="1_vkbqt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0rhk3"]
 size = Vector2(32, 32)
 
-[node name="Monster" type="Area2D"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(16, 16)
-shape = SubResource("RectangleShape2D_0rhk3")
+[node name="Monster" type="Area2D" groups=["Monsters"]]
+script = ExtResource("1_1sq1g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(1, 0, 0, 1)
@@ -17,3 +15,11 @@ texture = ExtResource("1_vkbqt")
 centered = false
 region_enabled = true
 region_rect = Rect2(16, 0, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_0rhk3")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(16, 16)
+target_position = Vector2(0, 32)

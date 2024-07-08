@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://u23i4xaa74q5" path="res://contexts/core/scenes/entities/Monster.tscn" id="4_vk0oa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bwpdi"]
+resource_name = "<null>"
 texture = ExtResource("1_3swem")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
