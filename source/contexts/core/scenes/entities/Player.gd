@@ -9,6 +9,9 @@ var direction_vectors = {
 }
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	BaseEntity.moving_next_turn.fill(null) # clear
+	print("**************************************")
+
 	if is_moving:
 		return
 		
