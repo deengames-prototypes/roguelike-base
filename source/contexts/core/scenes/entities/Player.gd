@@ -32,4 +32,4 @@ func pre_move():
 	CoreEventBus.player_moving.emit()
 
 func post_move():
-	CoreEventBus.player_moved.emit()
+	pass
