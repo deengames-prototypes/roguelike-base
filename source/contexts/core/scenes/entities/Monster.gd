@@ -3,7 +3,16 @@ extends BaseEntity
 
 func _ready() -> void:
 	CoreEventBus.player_moving.connect(try_to_move)
+	super._ready()
 
 func try_to_move():
-	var direction = [Vector2i.UP, Vector2i.DOWN, Vector2i.RIGHT, Vector2i.LEFT].pick_random()
-	self.move(direction)
+	# TODO: AI
+	var directions = [Vector2i.UP, Vector2i.DOWN, Vector2i.RIGHT, Vector2i.LEFT]
+	directions.shuffle()
+	
+	for direction in directions:
+		if not can_move(direction):
+			continue
+		
+		self.move(direction)
+		break
