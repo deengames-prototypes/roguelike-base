@@ -1,10 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4y44s6p6luoh"]
+[gd_scene load_steps=3 format=3 uid="uid://b4y44s6p6luoh"]
 
 [ext_resource type="Script" path="res://contexts/core/scenes/ui/Aimer.gd" id="1_3w230"]
 
-[node name="Aimer" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2mmn"]
+size = Vector2(30, 30)
+
+[node name="Aimer" type="Area2D"]
 script = ExtResource("1_3w230")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_j2mmn")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(0, 1, 0, 0.294118)
 polygon = PackedVector2Array(0, 0, 32, 0, 32, 32, 0, 32)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
