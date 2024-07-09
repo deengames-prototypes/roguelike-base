@@ -26,3 +26,6 @@ func try_to_move():
 		# Try to move. If we fail, keep going.
 		if await self.move(p):
 			break
+
+func hurt():
+	self.queue_free()

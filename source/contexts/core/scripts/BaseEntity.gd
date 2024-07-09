@@ -16,6 +16,11 @@ func can_move(direction:Vector2) -> bool:
 	ray.force_raycast_update()
 	return not ray.is_colliding()
 
+func get_melee_target(direction:Vector2) -> BaseEntity:
+	ray.target_position = direction.normalized() * TILE_SIZE
+	ray.force_raycast_update()
+	return ray.get_collider()
+
 # Returns true if moved. Maybe not, because someone else is moving there first.
 func move(direction:Vector2i) -> bool:
 	var move_diff:Vector2 = Vector2(direction * TILE_SIZE)
