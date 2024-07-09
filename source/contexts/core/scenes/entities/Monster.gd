@@ -6,6 +6,7 @@ var MOVEMENT_STRATEGIES = {
 	"hunt": HuntStrategy
 }
 
+@onready var player = get_tree().get_first_node_in_group("Player")
 var movement_strategy = MOVEMENT_STRATEGIES["hunt"].new(self)
 
 func _ready() -> void:
@@ -15,6 +16,14 @@ func _ready() -> void:
 	CoreEventBus.player_moving.connect(try_to_move)
 
 func try_to_move():
+	# Check if the player is in melee range
+	var distance_to_player:Vector2 = (player.position - self.position) / TILE_SIZE
+	if distance_to_player.length() <= 1:
+		player.hurt()
+		ActionTweener.attack(create_tween(), self, distance_to_player.normalized())
+		return
+		
+	# Nah, he's not melee-able. Move. According to our strategy.
 	var possible_moves = movement_strategy.get_moves()
 	possible_moves.shuffle()
 

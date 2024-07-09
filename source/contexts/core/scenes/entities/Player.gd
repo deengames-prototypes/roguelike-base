@@ -8,6 +8,9 @@ var direction_vectors = {
 	"down": Vector2.DOWN
 }
 
+# TODO: GOES INTO DATA
+var health_left:int = 4
+
 func _unhandled_key_input(event: InputEvent) -> void:
 	if is_moving:
 		return
@@ -46,3 +49,9 @@ func pre_move():
 
 func post_move():
 	pass
+
+func hurt():
+	self.health_left -= 1
+	if self.health_left <= 0:
+		CoreEventBus.player_died.emit()
+		self.queue_free()
