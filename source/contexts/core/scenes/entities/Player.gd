@@ -8,6 +8,11 @@ var direction_vectors = {
 	"down": Vector2.DOWN
 }
 
+# For monsters to know if they can hit us when we move. E.g. if they try to melee
+# but we move out of range, they shouldn't hit us. If we move from bow-range to
+# bow-range, or spell-range to spell-range, we're still hittable.
+var moving_to_tile:Vector2i
+
 # TODO: GOES INTO DATA
 var health_left:int = 4
 
@@ -38,6 +43,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 				continue
 				
 			# First spot that's walkable
+			self.moving_to_tile = Vector2i(self.position / TILE_SIZE) + direction_vector
 			move(direction_vector)
 			break
 
@@ -48,7 +54,7 @@ func pre_move():
 	CoreEventBus.player_moving.emit()
 
 func post_move():
-	pass
+	self.moving_to_tile = Vector2i(self.position / TILE_SIZE)
 
 func hurt():
 	self.health_left -= 1
