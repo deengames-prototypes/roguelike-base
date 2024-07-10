@@ -10,13 +10,13 @@ const PROJECTILES = {
 	"player": preload("res://contexts/core/scenes/entities/Projectile.tscn")
 }
 
-const VELOCITY = 100
+const VELOCITY = 400
 
 func shoot(target) -> void:
 	var projectile = PROJECTILES["player"].instantiate()
 	get_parent().add_child(projectile)
 	
-	# Half-tile-size is used to center objects *perfectly* :)
+	# Half-tile-size is used to center objects *perfectly* 
 	var start_position = get_parent().global_position + HALF_TILE_SIZE
 	var stop_position = target.global_position + HALF_TILE_SIZE
 	var travel_time = (stop_position - start_position).length() / VELOCITY

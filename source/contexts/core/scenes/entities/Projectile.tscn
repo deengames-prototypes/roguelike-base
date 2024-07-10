@@ -8,6 +8,7 @@
 texture_filter = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 1, 0, 1)
 texture = ExtResource("1_ft2ul")
 region_enabled = true
 region_rect = Rect2(14, 24, 16, 16)
