@@ -84,7 +84,8 @@ func handle_aim_and_fire() -> void:
 	get_parent().remove_child(aimer)
 	projectile_shooter.shoot(target)
 	projectile_shooter.hit.connect(func(hit_who):
-		hit_who.hurt()
+		if not hit_who is TileMap:
+			hit_who.hurt()
 		is_aiming = false
 	)
 
