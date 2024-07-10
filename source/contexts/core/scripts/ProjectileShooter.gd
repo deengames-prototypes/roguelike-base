@@ -15,10 +15,8 @@ var projectile:Node2D
 
 func shoot(target) -> void:
 	projectile = PROJECTILES["player"].instantiate()
-	# Hits entities
 	projectile.area_entered.connect(func(x): on_hit(x))
-	# Hits walls/tilemaps
-	projectile.body_entered.connect(func(x): on_hit(x))
+	projectile.body_entered.connect(func(x): on_hit_wall(x))
 	get_parent().add_child(projectile)
 	
 	# Half-tile-size is used to center objects *perfectly* 
@@ -31,5 +29,10 @@ func shoot(target) -> void:
 	tween.tween_property(projectile, "global_position", stop_position, travel_time)
 
 func on_hit(hit_who):
-	hit.emit(hit_who)
+	hit_who.hurt()
+	on_hit_wall(hit_who) # common collision code
+
+func on_hit_wall(impact):
 	projectile.queue_free()
+	hit.emit(impact)
+	
