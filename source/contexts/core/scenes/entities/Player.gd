@@ -79,7 +79,7 @@ func handle_aim_and_fire() -> void:
 	var target = await aimer.picked_target
 	
 	get_parent().remove_child(aimer)
-	print("returned %s" % target)
+	print("fire at %s" % target)
 	is_aiming = false
 
 func handle_melee(target:Monster, direction_vector:Vector2i) -> void:

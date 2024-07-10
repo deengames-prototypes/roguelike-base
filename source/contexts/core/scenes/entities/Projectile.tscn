@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://0pmhgnscbdo1"]
+
+[ext_resource type="Texture2D" uid="uid://bmm16sxc4md27" path="res://icon.png" id="1_ft2ul"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4hxaa"]
+
+[node name="Projectile" type="Area2D"]
+texture_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ft2ul")
+region_enabled = true
+region_rect = Rect2(14, 24, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4hxaa")

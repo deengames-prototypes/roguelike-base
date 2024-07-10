@@ -26,6 +26,7 @@ custom_data_layer_0/type = 4
 sources/0 = SubResource("TileSetAtlasSource_bwpdi")
 
 [node name="Node2D" type="Node2D"]
+texture_filter = 1
 script = ExtResource("1_0bmof")
 
 [node name="Tiles" type="TileMap" parent="."]

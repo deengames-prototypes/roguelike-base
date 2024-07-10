@@ -8,6 +8,7 @@ resource_local_to_scene = true
 size = Vector2(32, 32)
 
 [node name="Monster" type="Area2D" groups=["Monsters"]]
+texture_filter = 1
 script = ExtResource("1_1sq1g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
