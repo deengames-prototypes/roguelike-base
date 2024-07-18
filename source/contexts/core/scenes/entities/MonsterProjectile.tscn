@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://btbhk6jwh1iup"]
+
+[ext_resource type="Texture2D" uid="uid://bmm16sxc4md27" path="res://icon.png" id="1_o1lvc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4hxaa"]
+radius = 8.0
+
+[node name="Projectile" type="Area2D"]
+texture_filter = 1
+collision_layer = 0
+collision_mask = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.52, 0.266673, 0.1092, 1)
+texture = ExtResource("1_o1lvc")
+region_enabled = true
+region_rect = Rect2(15, 26, 12, 12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4hxaa")

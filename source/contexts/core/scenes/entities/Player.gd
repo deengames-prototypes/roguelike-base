@@ -16,14 +16,9 @@ var direction_vectors = {
 var moving_to_tile:Vector2i
 
 var is_aiming:bool = false
-var projectile_shooter = ProjectileShooter.new()
-
-# TODO: GOES INTO DATA
-var health_left:int = 4
-var firing_range:int = 5 # 0 to disable
 
 func _ready():
-	add_child(projectile_shooter)
+	super._ready()
 
 func _unhandled_key_input(event:InputEvent) -> void:
 	if is_moving or is_aiming:
@@ -82,7 +77,7 @@ func handle_aim_and_fire() -> void:
 	var target = await aimer.picked_target
 	
 	get_parent().remove_child(aimer)
-	projectile_shooter.shoot(target)
+	projectile_shooter.shoot(target, "player")
 	projectile_shooter.hit.connect(func(hit_who):
 		if not hit_who is TileMap:
 			hit_who.hurt()

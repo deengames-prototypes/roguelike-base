@@ -5,11 +5,19 @@ const TILE_SIZE:int = 32
 
 var is_moving:bool = false
 var ray:RayCast2D
+var projectile_shooter = ProjectileShooter.new()
+
+# TODO: GOES INTO DATA
+var health_left:int = 4
+var firing_range:int = 5 # 0 to disable
 
 static var moving_next_turn:Array2D = Array2D.new(1000, 1000)
 
 func _ready():
 	ray = %RayCast2D
+	add_child(projectile_shooter)
+
+	self.firing_range = 3
 
 func can_move(direction:Vector2) -> bool:
 	ray.target_position = direction.normalized() * TILE_SIZE

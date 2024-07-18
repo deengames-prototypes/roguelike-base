@@ -24,7 +24,16 @@ func try_to_move():
 		player.hurt()
 		ActionTweener.attack(create_tween(), self, distance_to_player.normalized())
 		return
-		
+	
+	if distance_to_player.length() <= firing_range:
+		projectile_shooter.shoot(player, "monster")
+		projectile_shooter.hit.connect(func(hit_who):
+			# May have hit someone between us and the player. Lol.
+			if not hit_who is TileMap:
+				hit_who.hurt()
+		)
+		return
+	
 	# Nah, he's not melee-able. Move. According to our strategy.
 	var possible_moves = movement_strategy.get_moves()
 	possible_moves.shuffle()

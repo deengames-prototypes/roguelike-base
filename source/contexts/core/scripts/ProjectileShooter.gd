@@ -8,13 +8,15 @@ const HALF_TILE_SIZE = Vector2(TILE_SIZE / 2, TILE_SIZE / 2)
 const VELOCITY = 400
 
 const PROJECTILES = {
-	"player": preload("res://contexts/core/scenes/entities/Projectile.tscn")
+	# They differ in size, but most importantly, in collision layers.
+	"player": preload("res://contexts/core/scenes/entities/PlayerProjectile.tscn"),
+	"monster": preload("res://contexts/core/scenes/entities/MonsterProjectile.tscn")
 }
 
 var projectile:Node2D
 
-func shoot(target) -> void:
-	projectile = PROJECTILES["player"].instantiate()
+func shoot(target, projectile_type) -> void:
+	projectile = PROJECTILES[projectile_type].instantiate()
 	projectile.area_entered.connect(func(x): on_hit(x))
 	projectile.body_entered.connect(func(x): on_hit_wall(x))
 	get_parent().add_child(projectile)
