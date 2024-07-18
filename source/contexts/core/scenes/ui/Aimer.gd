@@ -13,6 +13,11 @@ var direction_vectors = {
 	"down": Vector2.DOWN
 }
 
+var player:Player
+
+func _ready():
+	player = get_tree().get_first_node_in_group("Player")
+
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		picked_target.emit(null) # cancelled
@@ -22,7 +27,9 @@ func _process(_delta: float) -> void:
 			self.position += direction_vectors[direction] * TILE_SIZE
 	
 	if Input.is_action_just_pressed("fire_projectile") and target != null:
-		picked_target.emit(target)
+		var distance_to_target:Vector2 = (target.position - player.position) / TILE_SIZE
+		if distance_to_target.length() <= player.firing_range:
+			picked_target.emit(target)
 
 func _on_area_entered(area: Area2D) -> void:
 	target = area
