@@ -44,11 +44,8 @@ func pre_move():
 func post_move():
 	self.moving_to_tile = Vector2i(self.position / TILE_SIZE)
 
-func hurt():
-	self.health_left -= 1
-	if self.health_left <= 0:
-		CoreEventBus.player_died.emit()
-		self.queue_free()
+func pre_death():
+	CoreEventBus.player_died.emit()
 
 func handle_movement(event: InputEvent) -> void:
 	for direction in direction_vectors.keys():

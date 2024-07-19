@@ -8,7 +8,9 @@ var ray:RayCast2D
 var projectile_shooter = ProjectileShooter.new()
 
 # TODO: GOES INTO DATA
-var health_left:int = 4
+var health_left:int = 400
+var strength:int = 3 # base damage
+var tougness:int = 2 # base block
 var firing_range:int = 5 # 0 to disable
 
 static var moving_next_turn:Array2D = Array2D.new(1000, 1000)
@@ -58,6 +60,20 @@ func move(direction:Vector2i) -> bool:
 	
 	return true
 	
+### Hurts this guy for the damage amount indicated, maybe (apply toughness etc.)
+# Returns the *actual* damage inflicted.
+func hurt(raw_damage:int = 1):
+	# Assumes physical damage, i.e. use toughness
+	var damage = max(0, raw_damage - self.tougness)
+	
+	self.health_left -= damage
+	if self.health_left <= 0:
+		pre_death()
+		self.queue_free()
+	
+	return damage
+	
 # Virtual methods. Override please.
 func pre_move(): pass
 func post_move(): pass
+func pre_death(): pass
