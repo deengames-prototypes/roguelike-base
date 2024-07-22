@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbienee4el2ha"]
+[gd_scene load_steps=8 format=3 uid="uid://bbienee4el2ha"]
 
 [ext_resource type="Script" path="res://contexts/core/scenes/CoreGameScene.gd" id="1_0bmof"]
 [ext_resource type="Texture2D" uid="uid://b8fmrj8yxlggp" path="res://assets/images/tilesets/prototype.png" id="1_3swem"]
 [ext_resource type="PackedScene" uid="uid://dqf0dw7yhddst" path="res://contexts/core/scenes/entities/Player.tscn" id="3_8hkbo"]
 [ext_resource type="PackedScene" uid="uid://u23i4xaa74q5" path="res://contexts/core/scenes/entities/Monster.tscn" id="4_vk0oa"]
+[ext_resource type="PackedScene" uid="uid://dmmry2pfubshe" path="res://contexts/core/scenes/ui/ConsoleLog.tscn" id="5_yc7c0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bwpdi"]
 resource_name = "<null>"
@@ -48,3 +49,20 @@ position = Vector2(128, 224)
 
 [node name="Monster4" parent="." instance=ExtResource("4_vk0oa")]
 position = Vector2(576, 96)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SidePanel" type="Panel" parent="CanvasLayer"]
+custom_minimum_size = Vector2(240, 0)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ConsoleLog" parent="CanvasLayer/SidePanel" instance=ExtResource("5_yc7c0")]
+custom_minimum_size = Vector2(224, 0)
+layout_mode = 0
+offset_right = 0.0
+offset_bottom = 0.0

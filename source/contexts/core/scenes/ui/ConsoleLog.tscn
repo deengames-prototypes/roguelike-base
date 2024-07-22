@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmmry2pfubshe"]
+
+[ext_resource type="Script" path="res://contexts/core/scenes/ui/ConsoleLog.gd" id="1_gwxti"]
+
+[node name="MarginContainer" type="MarginContainer"]
+custom_minimum_size = Vector2(240, 540)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+script = ExtResource("1_gwxti")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(224, 524)
+layout_mode = 2
+
+[node name="ConsoleLog" type="Label" parent="ScrollContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(224, 524)
+layout_mode = 2
+size_flags_vertical = 1
+text = "l ala la la lalalalalallaaaaaaaaaaaaa
+i
+am
+a 
+console
+log
+that
+scrolls.
+scrolls
+scollity
+scroll
+the scroll
+so then
+see what
+it looks like
+ya scroller"
+autowrap_mode = 3
