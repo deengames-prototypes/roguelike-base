@@ -12,14 +12,13 @@ var movement_strategy = MOVEMENT_STRATEGIES["hunt"].new(self)
 # TODO: MOVE INTO DATA
 # NOTE: The order of skills = the order checked. TODO: sort by range...
 var skills =  {
-	"chomp": { "range": 1, "damage": 40 },
-	"projectile vomit": { "range": 2, "damage_multiplier": 1.5 },
+	#"chomp": { "range": 1, "damage": 40 },
+	#"projectile vomit": { "range": 2, "damage_multiplier": 1.5 },
 }
 
 func _ready() -> void:
 	super._ready()
 	add_child(movement_strategy) # just in-case it needs access to, say, the player.
-	
 	CoreEventBus.player_moving.connect(try_to_move)
 
 func try_to_move():
@@ -45,7 +44,8 @@ func try_to_move():
 			return
 	
 	if distance_to_player <= 1:
-		player.hurt()
+		var damage_type = ["normal", "special", "fire", "ice", "metal", "earth"].pick_random()
+		player.hurt(100, damage_type)
 		ActionTweener.attack(create_tween(), self, direction_to_player.normalized())
 		return
 	

@@ -19,6 +19,7 @@ var is_aiming:bool = false
 
 func _ready():
 	super._ready()
+	self.health_left = 99999
 
 func _unhandled_key_input(event:InputEvent) -> void:
 	if is_moving or is_aiming:
