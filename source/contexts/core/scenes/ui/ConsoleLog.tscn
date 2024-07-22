@@ -12,29 +12,29 @@ theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 script = ExtResource("1_gwxti")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-custom_minimum_size = Vector2(224, 524)
-layout_mode = 2
-
-[node name="ConsoleLog" type="Label" parent="ScrollContainer"]
+[node name="ConsoleLog" type="Label" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(224, 524)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "l ala la la lalalalalallaaaaaaaaaaaaa
-i
-am
-a 
-console
-log
-that
-scrolls.
-scrolls
-scollity
-scroll
-the scroll
-so then
-see what
-it looks like
-ya scroller"
+text = "one
+two
+three
+four
+five
+six
+seven
+eight
+nine
+ten
+eleven
+12
+13
+14
+15
+16"
+vertical_alignment = 2
 autowrap_mode = 3
+clip_text = true
+max_lines_visible = 14

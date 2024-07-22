@@ -5,3 +5,5 @@ signal player_moving()
 signal player_died() # Game over, in other words
 
 signal monster_died(who)
+
+signal log_to_console(message)
