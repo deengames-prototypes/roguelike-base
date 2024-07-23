@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmmry2pfubshe"]
+[gd_scene load_steps=3 format=3 uid="uid://dmmry2pfubshe"]
 
 [ext_resource type="Script" path="res://contexts/core/scenes/ui/ConsoleLog.gd" id="1_gwxti"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y6qo0"]
+font_size = 20
 
 [node name="MarginContainer" type="MarginContainer"]
 custom_minimum_size = Vector2(240, 540)
@@ -18,23 +21,27 @@ custom_minimum_size = Vector2(224, 524)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "one
-two
-three
-four
-five
-six
-seven
-eight
-nine
-ten
-eleven
+text = "1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
 12
 13
 14
 15
-16"
+16
+17
+18
+19"
+label_settings = SubResource("LabelSettings_y6qo0")
 vertical_alignment = 2
 autowrap_mode = 3
 clip_text = true
-max_lines_visible = 14
+max_lines_visible = 17

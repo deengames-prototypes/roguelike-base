@@ -78,12 +78,14 @@ func handle_aim_and_fire() -> void:
 	projectile_shooter.shoot(target, "player")
 	projectile_shooter.hit.connect(func(hit_who):
 		if not hit_who is TileMap:
-			hit_who.hurt()
+			var damage = hit_who.hurt()
+			CoreEventBus.log_to_console.emit("You fire at the %s! %s damage!" % [hit_who.name, damage])
 		is_aiming = false
 	)
 
 func handle_melee(target:Monster, direction_vector:Vector2i) -> void:
-	target.hurt()
+	var damage = target.hurt()
+	CoreEventBus.log_to_console.emit("You melee the %s for %s damage." % [target.name, damage])
 	var tween = ActionTweener.attack(create_tween(), self, direction_vector)
 	await tween.finished
 	pass_turn()

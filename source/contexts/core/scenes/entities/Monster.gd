@@ -40,22 +40,24 @@ func try_to_move():
 				damage += skill_data["damage"]
 			damage = int(round(damage))
 			var damage_inflicted = player.hurt(damage)
-			print("%s uses %s on player! %s damage!" % [self.name, skill_name, damage_inflicted])
+			CoreEventBus.log_to_console.emit("%s uses %s! %s damage!" % [self.name, skill_name, damage_inflicted])
 			return
 	
 	if distance_to_player <= 1:
 		var damage_type = ["normal", "special", "fire", "ice", "metal", "earth"].pick_random()
-		player.hurt(100, damage_type)
+		var damage = player.hurt(100, damage_type)
+		CoreEventBus.log_to_console.emit("%s melees you for %s damage!" % [self.name, damage])
 		ActionTweener.attack(create_tween(), self, direction_to_player.normalized())
 		return
-	
+		
 	# If this monster has a ranged attack, fire at the player (if in range).
-	if distance_to_player <= firing_range:
+	elif distance_to_player <= firing_range:
 		projectile_shooter.shoot(player, "monster")
 		projectile_shooter.hit.connect(func(hit_who):
 			# May have hit someone between us and the player. Lol.
 			if not hit_who is TileMap:
-				hit_who.hurt()
+				var damage = hit_who.hurt()
+				CoreEventBus.log_to_console.emit("%s shoots %s for %s damage!" % [self.name, hit_who.name, damage])
 		)
 		return
 	
@@ -68,6 +70,6 @@ func try_to_move():
 		if not self.can_move(p):
 			continue
 		
-		# Try to move. If we fail (e.g. someone else just moved there), keep going.
+		# Try to move. If we fail (e.g. someone else just moved there), keep iterating.
 		if await self.move(p):
 			break
